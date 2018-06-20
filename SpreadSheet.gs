@@ -84,6 +84,22 @@ var GasSS = (function() {
   return GasSS;
 })();
 
+/**
+ * アクティブシートの対象セルに文字列を入力
+ * シンプルなシート書き込みです。
+ * スプレッドシートにGASを組み込んでいる場合は、こちらを使用可能。
+ *
+ * @param msg 書き込み文字列
+ * @param row 行番号
+ * @param col 列番号
+ */
+function writeSheet(msg, row, col) {
+  // Excelへデータの記入
+  var sheet = SpreadsheetApp.getActiveSheet();
+  sheet.getRange(row, col).setValue(msg);
+  Logger.log(msg + "[" + row + ", " + col + "]");
+}
+
 /*
 //--[test]---------------------------------
 function testss() {
