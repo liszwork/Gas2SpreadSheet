@@ -16,7 +16,7 @@ var Log = (function() {
   this.errorLebel = ERR_LV_TRACE;
   
   var Log = function(errorLevel) {
-    if ( !this.chkRangeErrLv(errorLevel) ) {
+    if ( this.chkRangeErrLv(errorLevel) ) {
       this.errorLebel = errorLebel;
     }
     else {
@@ -28,11 +28,12 @@ var Log = (function() {
     this.errorLebel = errorLebel;
   }
   // 渡されたレベルが有効値か判定
+  // return true:範囲内, false:範囲外
   p.chkRangeErrLv = function(level) {
     // 異常値判定(範囲外)
     if ( level < ERR_LV_FATAL || ERR_LV_TRACE < level )
     {
-      Logger.log("@chkRangeErrLv: out of range > " + level);
+//      Logger.log("@chkRangeErrLv: out of range > " + level);
       return false;
     }
     return true;
@@ -42,14 +43,13 @@ var Log = (function() {
     // 異常値判定(範囲外)
     if ( !this.chkRangeErrLv(outputLv) )
     {
-      Logger.log("@hasErrLv: out of range > " + outputLv);
+//      Logger.log("@hasErrLv: out of range > " + outputLv);
       return false;
     }
     // 出力判定 true=出力OK
     var ret = ( outputLv <= this.errorLebel );
-    Logger.log("@hasErrLv: ret=" + ret + " > in=" + outputLv + ", conf=" + this.errorLebel);
+//    Logger.log("@hasErrLv: ret=" + ret + " > in=" + outputLv + ", conf=" + this.errorLebel);
     return ret;
-//    return ( outputLv <= this.errorLebel )
   }
   p.getErrLvStr = function(level) {
     if ( !this.chkRangeErrLv(level) ) {
@@ -70,13 +70,14 @@ var Log = (function() {
   return Log;
 })();
 
+/*
 function test() {
-  /* TEST Case
-  NONE設定で出力されないこと
-  各設定時に、全設定でログ出力を行い、設定値以下でないと出力されないこと
-  レベル変更で正常にレベル変更されること
-  異常値設定でNONE扱いとなること
-  */
+  //  [TEST Case]
+  //  NONE設定で出力されないこと
+  //  各設定時に、全設定でログ出力を行い、設定値以下でないと出力されないこと
+  //  レベル変更で正常にレベル変更されること
+  //  異常値設定でNONE扱いとなること
+  
   var log = new Log(ERR_LV_TRACE);
   
   // 全レベル変更
@@ -92,10 +93,4 @@ function test() {
     }
   }
 }
-
-
-
-
-
-
-
+*/
